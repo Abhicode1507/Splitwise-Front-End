@@ -1,0 +1,38 @@
+
+/* If "login-btn" class is unique, you can directly style it */
+.login-btn {
+  background-color: yellow !important;
+  color: black !important;
+}
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(-15deg);
+  }
+  75% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.wave-emoji {
+  display: inline-block;
+  animation: shake 2s infinite;
+}
+
+.register-link {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer; /* Add cursor pointer to indicate it's clickable */
+}
+
+.register-link:hover {
+  color: darkblue; /* Change color on hover for better visual feedback */
+}

@@ -23,7 +23,7 @@ export class NavBar extends Component {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
-              {this.props.isLoggedIn == false ? (
+              {this.props.isLoggedIn === false ? (
                 <li className="nav-item active">
                   <NavLink to="/" className="nav-link">
                     Login <span className="sr-only">(current)</span>
@@ -33,7 +33,7 @@ export class NavBar extends Component {
                 ""
               )}
 
-              {this.props.isLoggedIn == true ? (
+              {this.props.isLoggedIn === true ? (
                 <li>
                   <NavLink to="/users" className="nav-link">
                     Users <span className="sr-only">(current)</span>
@@ -43,7 +43,7 @@ export class NavBar extends Component {
                 ""
               )}
 
-              {this.props.isLoggedIn == true ? (
+              {this.props.isLoggedIn === true ? (
                 <li>
                   <NavLink to="/cart" className="nav-link">
                     Split Now <span className="sr-only">(current)</span>

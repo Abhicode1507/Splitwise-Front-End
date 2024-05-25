@@ -3,6 +3,8 @@ import { NavBar } from "./Navbar";
 import Login from "./Login";
 import Signup from "./Signup";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import './css/App.css';
+import { Home } from "./Home";
 
 export default class App extends Component {
   constructor(props) {
@@ -13,12 +15,16 @@ export default class App extends Component {
   render() {
     return (
       <Router>
-        <NavBar isLoggedIn={this.state.isLoggedIn} />
+        {/* <NavBar isLoggedIn={this.state.isLoggedIn} /> */}
         <div className="container-fluid">
           <Routes>
             <Route
               path="/login"
               element={<Login updateIsLoggedInStatus={this.updateIsLoggedInStatus} />}
+            />
+            <Route
+              path="/home"
+              element={<Home />}
             />
             <Route
               path="/signup"

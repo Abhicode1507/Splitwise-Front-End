@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "./css/Signup.css"
 
 export default class Signup extends Component {
   constructor(props) {
@@ -120,10 +121,6 @@ export default class Signup extends Component {
                   }
                   required
                 />
-                <label className="custom-file-label" htmlFor="avatar">
-                  Choose file
-                </label>
-                <div className="invalid-feedback">Please upload an avatar.</div>
               </div>
             </div>
 
@@ -140,16 +137,12 @@ export default class Signup extends Component {
                   }
                   required
                 />
-                <label className="custom-file-label" htmlFor="cover">
-                  Choose file
-                </label>
-                <div className="invalid-feedback">Please upload a cover image.</div>
               </div>
             </div>
 
             <div className="text-end">
               {this.state.message}
-              <button type="submit" className="btn btn-primary mt-3">
+              <button type="submit" className="btn signup-btn mt-3">
                 Sign Up
               </button>
             </div>
