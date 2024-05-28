@@ -105,6 +105,11 @@ class Login extends Component {
         this.setState({
           message: <span className="text-success">Successfully Logged-in</span>,
         });
+        // Store the access token in localStorage
+        console.log('access token---',body.data.accessToken);
+        localStorage.setItem("accessToken", body.data.accessToken);
+        localStorage.setItem("id",body.data.user.id);
+
         // call updateIsLoggedInStatus of parent component to update the status as true
         this.props.updateIsLoggedInStatus(true);
 
@@ -121,6 +126,7 @@ class Login extends Component {
       // handle error
     }
   };
+
 
   onSignupClick = () => {
     this.props.navigate("/signup");
