@@ -14,6 +14,14 @@ export default class App extends Component {
     this.handleAddExpense = this.handleAddExpense.bind(this); // Binding the method
   }
 
+  componentDidMount() {
+    // Check if the user is already logged in
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      this.setState({ isLoggedIn: true });
+    }
+  }
+
   handleAddExpense(expense) {
     this.setState((prevState) => ({
       expenses: [...prevState.expenses, expense]
@@ -38,10 +46,7 @@ export default class App extends Component {
               </>
             ) : (
               // Redirect to login if user is not logged in
-              <Route
-                path="/home"
-                element={<Navigate to="/login" replace />}
-              />
+              <Route to="/login" replace />
             )}
             <Route
               path="/signup"
@@ -49,7 +54,7 @@ export default class App extends Component {
             />
             <Route path="/profile" element={<Profile />} />
             {/* Redirect to login if no route matches */}
-            <Route path="*" element={<Login updateIsLoggedInStatus={this.updateIsLoggedInStatus} />} />
+            <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
         </div>
       </Router>

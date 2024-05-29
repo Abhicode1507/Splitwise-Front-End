@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./css/Login.css";
 
@@ -6,6 +6,14 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = { email: "", password: "", message: "" };
+  }
+
+  componentDidMount() {
+    // Check if the user is already logged in
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      this.props.updateIsLoggedInStatus(true);
+    }
   }
 
   render() {
@@ -112,9 +120,6 @@ class Login extends Component {
 
         // call updateIsLoggedInStatus of parent component to update the status as true
         this.props.updateIsLoggedInStatus(true);
-
-        // Redirect to Home component
-        this.props.navigate("/home");
       } else {
         // error
         this.setState({
@@ -135,6 +140,16 @@ class Login extends Component {
 
 const LoginWithNavigate = (props) => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Redirect to home if user is already logged in
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      props.updateIsLoggedInStatus(true);
+      navigate("/home");
+    }
+  }, [navigate, props]);
+
   return <Login {...props} navigate={navigate} />;
 };
 
