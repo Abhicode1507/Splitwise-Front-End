@@ -29,3 +29,8 @@ html, body, #root, .app-container {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 20px;
 }
+
+.classic-btn {
+  background-color: yellow !important;
+  color: black !important;
+}

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./css/Login.css";
 
@@ -6,6 +6,14 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = { email: "", password: "", message: "" };
+  }
+
+  componentDidMount() {
+    // Check if the user is already logged in
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      this.props.updateIsLoggedInStatus(true);
+    }
   }
 
   render() {
@@ -105,11 +113,13 @@ class Login extends Component {
         this.setState({
           message: <span className="text-success">Successfully Logged-in</span>,
         });
+        // Store the access token in localStorage
+        console.log('access token---',body.data.accessToken);
+        localStorage.setItem("accessToken", body.data.accessToken);
+        localStorage.setItem("id",body.data.user.id);
+
         // call updateIsLoggedInStatus of parent component to update the status as true
         this.props.updateIsLoggedInStatus(true);
-
-        // Redirect to Home component
-        this.props.navigate("/home");
       } else {
         // error
         this.setState({
@@ -122,6 +132,7 @@ class Login extends Component {
     }
   };
 
+
   onSignupClick = () => {
     this.props.navigate("/signup");
   };
@@ -129,6 +140,16 @@ class Login extends Component {
 
 const LoginWithNavigate = (props) => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Redirect to home if user is already logged in
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      props.updateIsLoggedInStatus(true);
+      navigate("/home");
+    }
+  }, [navigate, props]);
+
   return <Login {...props} navigate={navigate} />;
 };
 
