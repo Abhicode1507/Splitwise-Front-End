@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import './css/App.css';
 import Login from "./Login";
 import Signup from "./Signup";
 import Home from "./Home";
 import AddExpense from "./AddExpense";
 import Profile from "./Profile";
+import { NavBar } from "./Navbar";
 
 export default class App extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ export default class App extends Component {
   render() {
     return (
       <Router>
-        {/* <NavBar isLoggedIn={this.state.isLoggedIn} /> */}
+        <ConditionalNavBar isLoggedIn={this.state.isLoggedIn} updateIsLoggedInStatus={this.updateIsLoggedInStatus} />
         <div className="container-fluid">
           <Routes>
             <Route
@@ -43,16 +44,16 @@ export default class App extends Component {
               <>
                 <Route path="/home" element={<Home expenses={this.state.expenses} />} />
                 <Route path="/addexpense" element={<AddExpense onAddExpense={this.handleAddExpense} />} />
+                <Route path="/profile" element={<Profile />} />
               </>
             ) : (
               // Redirect to login if user is not logged in
-              <Route to="/login" replace />
+              <Route path="/" element={<Navigate to="/login" replace />} />
             )}
             <Route
               path="/signup"
               element={<Signup updateIsLoggedInStatus={this.updateIsLoggedInStatus} />}
             />
-            <Route path="/profile" element={<Profile />} />
             {/* Redirect to login if no route matches */}
             <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
@@ -65,3 +66,12 @@ export default class App extends Component {
     this.setState({ isLoggedIn: status });
   };
 }
+
+const ConditionalNavBar = (props) => {
+  const location = useLocation();
+  const hideNavBarRoutes = ['/login', '/signup'];
+
+  return !hideNavBarRoutes.includes(location.pathname) ? (
+    <NavBar {...props} />
+  ) : null;
+};

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./css/Signup.css"
+import { useNavigate } from "react-router-dom";
+import "./css/Signup.css";
 
-export default class Signup extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,133 +21,145 @@ export default class Signup extends Component {
   render() {
     return (
       <div className="container d-flex justify-content-center align-items-center vh-100">
-        <div className="card p-4 shadow-sm max-vh-100" style={{ width: "500px" }}>
-          <h4 className="m-1 p-2 border-bottom">Sign Up</h4>
-          <form
-            id="userForm"
-            className="needs-validation"
-            noValidate
-            onSubmit={this.onSignupClick}
-          >
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label htmlFor="username">Username:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="username"
-                    value={this.state.username}
-                    onChange={(event) =>
-                      this.setState({ username: event.target.value })
-                    }
-                    required
-                  />
-                  <div className="invalid-feedback">Please enter a username.</div>
+        <div>
+          <h1 style={{ color: "white" }}>
+            Welcome!
+            <span role="img" aria-label="Wave" className="wave-emoji" style={{ animationDuration: "2s" }}>
+              👋
+            </span>
+          </h1>
+          <br />
+          <div className="card p-4 shadow-sm max-vh-100" style={{ width: "500px" }}>
+            <h4 className="m-1 p-2 border-bottom">Sign Up</h4>
+            <form
+              id="userForm"
+              className="needs-validation"
+              noValidate
+              onSubmit={this.onSignupClick}
+            >
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label htmlFor="username">Username:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="username"
+                      value={this.state.username}
+                      onChange={(event) =>
+                        this.setState({ username: event.target.value })
+                      }
+                      required
+                    />
+                    <div className="invalid-feedback">Please enter a username.</div>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label htmlFor="fullName">Full Name:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="fullName"
+                      value={this.state.fullName}
+                      onChange={(event) =>
+                        this.setState({ fullName: event.target.value })
+                      }
+                      required
+                    />
+                    <div className="invalid-feedback">Please enter your full name.</div>
+                  </div>
                 </div>
               </div>
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label htmlFor="fullName">Full Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="fullName"
-                    value={this.state.fullName}
-                    onChange={(event) =>
-                      this.setState({ fullName: event.target.value })
-                    }
-                    required
-                  />
-                  <div className="invalid-feedback">Please enter your full name.</div>
-                </div>
-              </div>
-            </div>
 
-            <div className="form-group">
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                value={this.state.email}
-                onChange={(event) =>
-                  this.setState({ email: event.target.value })
-                }
-                required
-              />
-              <div className="invalid-feedback">Please enter a valid email address.</div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password">Password:</label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                value={this.state.password}
-                onChange={(event) =>
-                  this.setState({ password: event.target.value })
-                }
-                required
-              />
-              <div className="invalid-feedback">Please enter a password.</div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm Password:</label>
-              <input
-                type="password"
-                className="form-control"
-                id="confirmPassword"
-                value={this.state.confirmPassword}
-                onChange={(event) =>
-                  this.setState({ confirmPassword: event.target.value })
-                }
-                required
-              />
-              <div className="invalid-feedback">Passwords do not match.</div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="avatar">Avatar:</label>
-              <div className="custom-file">
+              <div className="form-group">
+                <label htmlFor="email">Email:</label>
                 <input
-                  type="file"
-                  className="custom-file-input"
-                  id="avatar"
-                  accept="image/*"
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  value={this.state.email}
                   onChange={(event) =>
-                    this.setState({ avatar: event.target.files[0] })
+                    this.setState({ email: event.target.value })
                   }
                   required
                 />
+                <div className="invalid-feedback">Please enter a valid email address.</div>
               </div>
-            </div>
 
-            <div className="form-group">
-              <label htmlFor="cover">Cover:</label>
-              <div className="custom-file">
+              <div className="form-group">
+                <label htmlFor="password">Password:</label>
                 <input
-                  type="file"
-                  className="custom-file-input"
-                  id="cover"
-                  accept="image/*"
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  value={this.state.password}
                   onChange={(event) =>
-                    this.setState({ cover: event.target.files[0] })
+                    this.setState({ password: event.target.value })
                   }
                   required
                 />
+                <div className="invalid-feedback">Please enter a password.</div>
               </div>
-            </div>
 
-            <div className="text-end">
-              {this.state.message}
-              <button type="submit" className="btn signup-btn mt-3">
-                Sign Up
-              </button>
-            </div>
-          </form>
+              <div className="form-group">
+                <label htmlFor="confirmPassword">Confirm Password:</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="confirmPassword"
+                  value={this.state.confirmPassword}
+                  onChange={(event) =>
+                    this.setState({ confirmPassword: event.target.value })
+                  }
+                  required
+                />
+                <div className="invalid-feedback">Passwords do not match.</div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="avatar">Avatar:</label>
+                <div className="custom-file">
+                  <input
+                    type="file"
+                    className="custom-file-input"
+                    id="avatar"
+                    accept="image/*"
+                    onChange={(event) =>
+                      this.setState({ avatar: event.target.files[0] })
+                    }
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="cover">Cover:</label>
+                <div className="custom-file">
+                  <input
+                    type="file"
+                    className="custom-file-input"
+                    id="cover"
+                    accept="image/*"
+                    onChange={(event) =>
+                      this.setState({ cover: event.target.files[0] })
+                    }
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="text-end">
+                {this.state.message}
+                <button type="submit" className="btn signup-btn mt-3">
+                  Sign Up
+                </button>
+                <p className="m-1 text-center">
+                  Already have an account? <span className="register-link" onClick={this.onSigninClick}>Sign in</span>
+                </p>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     );
@@ -214,4 +227,15 @@ export default class Signup extends Component {
       });
     }
   };
+
+  onSigninClick = () => {
+    this.props.navigate("/login");
+  };
 }
+
+const SignupWithNavigate = (props) => {
+  const navigate = useNavigate();
+  return <Signup {...props} navigate={navigate} />;
+};
+
+export default SignupWithNavigate;

@@ -15,10 +15,14 @@ export class Expenses extends React.Component {
 
   fetchExpenses = async () => {
     try {
-      // const accessToken = localStorage.getItem("accessToken");
+      const accessToken = localStorage.getItem("accessToken");
+      console.log('acces token--',accessToken);
       console.log('expense api hit');
       const response = await fetch("http://localhost:8000/api/v1/expense", {
-        method: "GET"
+        method: "GET",
+        headers:{
+          Authorization : `Bearer ${accessToken}`
+        }
       });
       console.log('response--',response);
       const data = await response.json();

@@ -21,7 +21,7 @@ class Login extends Component {
       <div className="container d-flex justify-content-center align-items-center vh-100">
         <div>
           <h1 style={{ color: "white" }}>
-            Welcomeback!
+            Welcome back!
             <span role="img" aria-label="Wave" className="wave-emoji" style={{ animationDuration: "2s" }}>
               👋
             </span>
