@@ -7,6 +7,7 @@ import Home from "./Home";
 import AddExpense from "./AddExpense";
 import Profile from "./Profile";
 import { NavBar } from "./Navbar";
+import EditExpense from "./EditExpense";
 
 export default class App extends Component {
   constructor(props) {
@@ -45,6 +46,7 @@ export default class App extends Component {
                 <Route path="/home" element={<Home expenses={this.state.expenses} />} />
                 <Route path="/addexpense" element={<AddExpense onAddExpense={this.handleAddExpense} />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/editexpense/:id" element={<EditExpense />} />
               </>
             ) : (
               // Redirect to login if user is not logged in

@@ -13,14 +13,32 @@ export class NavBar extends Component {
 
   handleLogout() {
     const accessToken = localStorage.getItem("accessToken");
-    console.log('access token--', accessToken);
+
+    if (!accessToken) {
+      // Token is not available, redirect to login
+      this.setState({ redirectToLogin: true });
+      return;
+    }
+
     fetch("http://localhost:8000/api/v1/users/logout", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`
       },
     })
-    .then(response => response.json())
+    .then(response => {
+      if (response.status === 401) {
+        // Handle unauthorized error (token might be expired)
+        console.error("Token expired or unauthorized");
+        // Clear user data from local storage or state management
+        localStorage.removeItem("accessToken");
+        this.setState({ redirectToLogin: true });
+        if (this.props.updateIsLoggedInStatus) {
+          this.props.updateIsLoggedInStatus(false);
+        }
+      }
+      return response.json();
+    })
     .then(data => {
       if (data.success) {
         // Clear user data from local storage or state management
@@ -37,6 +55,12 @@ export class NavBar extends Component {
     })
     .catch(error => {
       console.error("An error occurred while logging out:", error);
+      // Assume the token might be expired and clear user data
+      localStorage.removeItem("accessToken");
+      this.setState({ redirectToLogin: true });
+      if (this.props.updateIsLoggedInStatus) {
+          this.props.updateIsLoggedInStatus(false);
+      }
     });
   }
 
