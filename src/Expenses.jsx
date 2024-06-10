@@ -34,9 +34,32 @@ class Expenses extends Component {
     }
   };
 
+  deleteExpense = async (id) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const response = await fetch(`http://localhost:8000/api/v1/expense/delete-expense/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      const data = await response.json();
+      if (data.success) {
+        this.setState(prevState => ({
+          expenses: prevState.expenses.filter(expense => expense._id !== id)
+        }));
+        console.log("Expense deleted successfully");
+      } else {
+        console.error("Failed to delete expense:", data.message);
+      }
+    } catch (error) {
+      console.error("Error deleting expense:", error);
+    }
+  };
+
   render() {
     const { expenses } = this.state;
-
+    console.log('expenses---', expenses);
     return (
       <div className="container mt-5">
         <h4 className="mb-3">Expenses</h4>
@@ -51,14 +74,20 @@ class Expenses extends Component {
           </thead>
           <tbody>
             {expenses.map((expense, index) => (
-              <tr key={index}>
+              <tr key={expense._id}>
                 <td>{index + 1}</td>
                 <td>{expense.amount}</td>
                 <td>{expense.description}</td>
                 <td>
-                  <Link to={`/editexpense/${expense.id}`} className="btn btn-primary">
+                  <Link to={`/editexpense/${expense._id}`} className="btn btn-primary btn-space">
                     View
                   </Link>
+                  <button 
+                    onClick={() => this.deleteExpense(expense._id)} 
+                    className="btn btn-danger"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

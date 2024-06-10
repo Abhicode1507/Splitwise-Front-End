@@ -1,43 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 const EditExpense = () => {
   const { id } = useParams(); // Get the expense ID from the URL params
+  const navigate = useNavigate(); // Get the navigate function
+  console.log('editExpenseID--', id);
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    fetchExpenseDetails(id);
-  }, [id]);
-
-  const fetchExpenseDetails = async (id) => {
-    try {
-      const accessToken = localStorage.getItem("accessToken");
-      const response = await fetch(`http://localhost:8000/api/v1/expense/${id}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      const data = await response.json();
-      if (data.success) {
-        setAmount(data.data.amount || "");
-        setDescription(data.data.description || "");
-      } else {
-        console.error("Failed to fetch expense details:", data.message);
-      }
-    } catch (error) {
-      console.error("Error fetching expense details:", error);
-    }
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const response = await fetch(`http://localhost:8000/api/v1/expense/${id}`, {
+      const response = await fetch(`http://localhost:8000/api/v1/expense/edit-expense/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -47,8 +24,10 @@ const EditExpense = () => {
       });
 
       const data = await response.json();
+      console.log('dataAFterApi---',data);
       if (data.success) {
         setMessage("Expense updated successfully");
+        navigate("/"); // Redirect to home page
       } else {
         setMessage(`Failed to update expense: ${data.message}`);
       }

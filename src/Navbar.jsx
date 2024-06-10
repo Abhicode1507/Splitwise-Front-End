@@ -1,14 +1,17 @@
 import React, { Component } from "react";
-import { NavLink, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import './css/Navbar.css';
 
 export class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirectToLogin: false
+      redirectToLogin: false,
+      redirectToProfile: false,
+      user: null
     };
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleProfileClick = this.handleProfileClick.bind(this);
   }
 
   handleLogout() {
@@ -64,9 +67,18 @@ export class NavBar extends Component {
     });
   }
 
+  handleProfileClick() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    this.setState({ redirectToProfile: true, user });
+  }
+
   render() {
     if (this.state.redirectToLogin) {
       return <Navigate to="/login" replace />;
+    }
+
+    if (this.state.redirectToProfile) {
+      return <Navigate to="/profile" state={{ user: this.state.user }} replace />;
     }
 
     return (
@@ -84,9 +96,9 @@ export class NavBar extends Component {
                 {this.props.isLoggedIn && (
                   <>
                     <li className="nav-item px-3">
-                      <NavLink className="nav-link text-white opacity-8" to="/profile">
+                      <span className="nav-link text-white opacity-8" style={{ cursor: "pointer" }} onClick={this.handleProfileClick}>
                         Profile
-                      </NavLink>
+                      </span>
                     </li>
                     <li className="nav-item px-3">
                       <span className="nav-link text-white opacity-8" style={{ cursor: "pointer" }} onClick={this.handleLogout}>

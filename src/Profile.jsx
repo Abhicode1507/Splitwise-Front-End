@@ -1,47 +1,30 @@
 import React, { Component } from "react";
+import './css/Profile.css'; // Add your custom CSS file if needed
 
 class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: null,
-      loading: true
-    };
-  }
-
-  componentDidMount() {
-    // Retrieve user information from session storage or wherever it's stored
-    const user = JSON.parse(localStorage.getItem("user")); // Assuming user data is stored in localStorage
-
-    if (user) {
-      this.setState({ user, loading: false });
-    } else {
-      this.setState({ loading: false });
-    }
-  }
-
   render() {
-    const { user, loading } = this.state;
-
-    if (loading) {
-      return <div>Loading...</div>;
-    }
-
+    const { user } = this.props;
+    console.log('user data in profile', user);
     if (!user) {
-      return <div>User not found. Please log in.</div>;
+      return <div>User data is not available.</div>;
     }
 
     return (
-      <div className="container">
-        <h1>Profile</h1>
-        <div>
-          <img src={user.avatar} alt="Avatar" style={{ width: 100, height: 100, borderRadius: "50%" }} />
-        </div>
-        <div>
-          <p>Name: {user.name}</p>
-          <p>Username: {user.username}</p>
-          <p>Full Name: {user.fullName}</p>
-          <p>Email: {user.email}</p>
+      <div className="container d-flex justify-content-center align-items-center vh-100">
+        <div className="card">
+          <div className="upper">
+            <img src={user.coverImage} className="img-fluid" alt="Cover" />
+          </div>
+          <div className="user text-center">
+            <div className="profile">
+              <img src={user.avatar} className="rounded-circle" width="80" alt="Profile" />
+            </div>
+          </div>
+          <div className="mt-5 text-center">
+            <h4 className="mb-0">{user.userName}</h4>
+            <span className="text-muted d-block mb-2"><b>Full Name</b>:{user.fullName}</span>
+            <span className="text-muted d-block mb-2"><b>Email</b>:{user.email}</span>
+          </div>
         </div>
       </div>
     );

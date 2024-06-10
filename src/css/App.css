@@ -34,3 +34,8 @@ html, body, #root, .app-container {
   background-color: yellow !important;
   color: black !important;
 }
+
+/* App.css */
+.btn-space {
+  margin-right: 10px; /* Adjust the value as needed */
+}

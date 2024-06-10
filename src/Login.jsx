@@ -107,16 +107,14 @@ class Login extends Component {
       );
 
       const body = await response.json();
-      console.log(body);
       if (body.success) {
         // success
         this.setState({
           message: <span className="text-success">Successfully Logged-in</span>,
         });
-        // Store the access token in localStorage
-        console.log('access token---',body.data.accessToken);
+        // Store the access token and user data in localStorage
         localStorage.setItem("accessToken", body.data.accessToken);
-        localStorage.setItem("id",body.data.user.id);
+        localStorage.setItem("user", JSON.stringify(body.data.user));
 
         // call updateIsLoggedInStatus of parent component to update the status as true
         this.props.updateIsLoggedInStatus(true);
@@ -131,7 +129,6 @@ class Login extends Component {
       // handle error
     }
   };
-
 
   onSignupClick = () => {
     this.props.navigate("/signup");
@@ -154,4 +151,3 @@ const LoginWithNavigate = (props) => {
 };
 
 export default LoginWithNavigate;
-
