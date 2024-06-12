@@ -80,7 +80,7 @@ class Expenses extends Component {
                 <td>{expense.description}</td>
                 <td>
                   <Link to={`/editexpense/${expense._id}`} className="btn btn-primary btn-space">
-                    View
+                    Edit
                   </Link>
                   <button 
                     onClick={() => this.deleteExpense(expense._id)} 
