@@ -13,6 +13,9 @@ class Home extends Component {
         <Link to="/addexpense" className="btn m-1 addExpense-btn">
           Add Expense
         </Link>
+        <Link to="/addgroup" className="btn m-1 addExpense-btn">
+          Add Group
+        </Link>
         <Expenses expenses={this.props.expenses} />
       </div>
     );

@@ -9,6 +9,8 @@ import Profile from "./Profile";
 import { NavBar } from "./Navbar";
 import EditExpense from "./EditExpense";
 import ProfileWrapper from "./ProfileWrapper";
+import AddGroup from "./AddGroup";
+import Groups from "./Groups";
 
 export default class App extends Component {
   constructor(props) {
@@ -46,8 +48,10 @@ export default class App extends Component {
               <>
                 <Route path="/home" element={<Home expenses={this.state.expenses} />} />
                 <Route path="/addexpense" element={<AddExpense onAddExpense={this.handleAddExpense} />} />
+                <Route path="/addgroup" element={<AddGroup onAddExpense={this.handleAddExpense} />} />
                 <Route path="/profile" element={<ProfileWrapper />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/groups" element={<Groups />} />
                 <Route path="/editexpense/:id" element={<EditExpense />} />
               </>
             ) : (

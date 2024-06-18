@@ -37,11 +37,6 @@ class Profile extends Component {
               <b>Email</b>: {user.email}
             </span>
           </div>
-          <div className={styles.backButtonContainer}>
-            <Link to="/" className="btn btn-primary btn-space">
-              Back
-            </Link>
-          </div>
         </div>
       </div>
     );

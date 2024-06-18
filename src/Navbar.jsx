@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import './css/Navbar.css';
 
 export class NavBar extends Component {
@@ -85,9 +85,9 @@ export class NavBar extends Component {
       <React.Fragment>
         <nav className="navbar navbar-expand-lg navbar-dark bg-gradient-dark z-index-3 py-3">
           <div className="container">
-            <a className="navbar-brand text-white fs-1" href="/" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom">
+            <Link className="navbar-brand text-white fs-1" to="/" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom">
               Splitwise Ultra
-            </a>
+            </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -96,9 +96,19 @@ export class NavBar extends Component {
                 {this.props.isLoggedIn && (
                   <>
                     <li className="nav-item px-3">
-                      <span className="nav-link text-white opacity-8" style={{ cursor: "pointer" }} onClick={this.handleProfileClick}>
+                      <Link to="/home" className="nav-link text-white opacity-8">
+                        Home
+                      </Link>
+                    </li>
+                    <li className="nav-item px-3">
+                      <Link to="/groups" className="nav-link text-white opacity-8">
+                        Groups
+                      </Link>
+                    </li>
+                    <li className="nav-item px-3">
+                      <Link to="/profile" className="nav-link text-white opacity-8" state={{ user: this.state.user }}>
                         Profile
-                      </span>
+                      </Link>
                     </li>
                     <li className="nav-item px-3">
                       <span className="nav-link text-white opacity-8" style={{ cursor: "pointer" }} onClick={this.handleLogout}>

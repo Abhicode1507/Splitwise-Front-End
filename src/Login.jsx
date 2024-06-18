@@ -115,7 +115,7 @@ class Login extends Component {
         // Store the access token and user data in localStorage
         localStorage.setItem("accessToken", body.data.accessToken);
         localStorage.setItem("user", JSON.stringify(body.data.user));
-
+        console.log('user data---',body.data.user);
         // call updateIsLoggedInStatus of parent component to update the status as true
         this.props.updateIsLoggedInStatus(true);
       } else {
