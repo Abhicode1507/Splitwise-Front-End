@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import GroupExpenses from "./GroupExpenses";
 import './css/Home.css';
 
 class Groups extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      groups: []
+      groups: [],
+      selectedGroupId: null // To hold the selected group ID
     };
   }
 
@@ -19,10 +20,8 @@ class Groups extends Component {
       const accessToken = localStorage.getItem("accessToken");
       const userData = localStorage.getItem("user");
       const user = JSON.parse(userData);
-      console.log("user in groups",user);
-      const userId = user._id
-      console.log('usrId---',userId);
-      console.log("accessToken---",accessToken);
+      const userId = user._id;
+
       const response = await fetch(`http://localhost:8000/api/v1/groups/${userId}`, {
         method: "GET",
         headers: {
@@ -40,8 +39,18 @@ class Groups extends Component {
     }
   };
 
+  handleViewClick = (groupId) => {
+    this.setState({ selectedGroupId: groupId });
+  };
+
   render() {
-    const { groups } = this.state;
+    const { groups, selectedGroupId } = this.state;
+
+    if (selectedGroupId) {
+      // Render GroupExpenses component if a group is selected
+      return <GroupExpenses groupId={selectedGroupId} />;
+    }
+
     return (
       <div className="container mt-5">
         <h4 className="mb-3">Groups</h4>
@@ -59,9 +68,12 @@ class Groups extends Component {
                 <td>{index + 1}</td>
                 <td>{group.name}</td>
                 <td>
-                  <Link to={`/groups/${group._id}/expenses`} className="btn btn-primary btn-space">
+                  <button 
+                    onClick={() => this.handleViewClick(group._id)} 
+                    className="btn btn-primary btn-space"
+                  >
                     View
-                  </Link>
+                  </button>
                 </td>
               </tr>
             ))}

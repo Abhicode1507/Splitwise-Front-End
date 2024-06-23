@@ -11,6 +11,7 @@ import EditExpense from "./EditExpense";
 import ProfileWrapper from "./ProfileWrapper";
 import AddGroup from "./AddGroup";
 import Groups from "./Groups";
+import GroupExpenses from "./GroupExpenses";
 
 export default class App extends Component {
   constructor(props) {
@@ -53,6 +54,7 @@ export default class App extends Component {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/groups" element={<Groups />} />
                 <Route path="/editexpense/:id" element={<EditExpense />} />
+                <Route path="/groupexpenses" element={<GroupExpenses />} />
               </>
             ) : (
               // Redirect to login if user is not logged in
